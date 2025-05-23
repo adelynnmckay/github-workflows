@@ -20,28 +20,28 @@ jobs:
           fetch-depth: 0
 
       - name: Run Tests
-        uses: ${{ inputs.repo_owner }}/github-actions/.github/actions/run-make-test@main
+        uses: adelynnmckay/github-actions/.github/actions/run-make-test@main
 
       - name: Tap Homebrew
-        uses: ${{ inputs.repo_owner }}/github-actions/.github/actions/tap-homebrew-repo@main
+        uses: adelynnmckay/github-actions/.github/actions/tap-homebrew-repo@main
         with:
           repo_owner: ${{ inputs.repo_owner }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Bump Version
         id: bump
-        uses: ${{ inputs.repo_owner }}/github-actions/.github/actions/bump-version@main
+        uses: adelynnmckay/github-actions/.github/actions/bump-version@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
-        uses: ${{ inputs.repo_owner }}/github-actions/.github/actions/create-release@main
+        uses: adelynnmckay/github-actions/.github/actions/create-release@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ steps.bump.outputs.new_version }}
 
       - name: Update Formula In-Place
-        uses: ${{ inputs.repo_owner }}/github-actions/.github/actions/update-formula@main
+        uses: adelynnmckay/github-actions/.github/actions/update-formula@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ steps.bump.outputs.new_version }}
@@ -49,7 +49,7 @@ jobs:
           action_name: ${{ github.workflow }}
 
       - name: Mirror Formula to homebrew-tap
-        uses: ${{ inputs.repo_owner }}/github-actions/.github/actions/publish-to-tap@main
+        uses: adelynnmckay/github-actions/.github/actions/publish-to-tap@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
