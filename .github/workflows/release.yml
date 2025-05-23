@@ -42,11 +42,3 @@ jobs:
           repo: ${{ github.repository }}
           action_name: ${{ github.workflow }}
 
-      - name: Mirror Formula to homebrew-tap
-        uses: adelynnmckay/github-actions/.github/actions/publish-to-tap@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.repository }}
-          version: ${{ steps.bump.outputs.new_version }}
-          repo_owner: ${{ inputs.repo_owner }}
-          repo_name: ${{ inputs.repo_name }}
