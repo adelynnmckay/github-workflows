@@ -34,19 +34,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update Formula In-Place
-        uses: adelynnmckay/github-actions/.github/actions/update-formula@main
+      - name: Prepare Release (update formula, tag, release)
+        uses: adelynnmckay/github-actions/.github/actions/prepare-release@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ steps.bump.outputs.new_version }}
           repo: ${{ github.repository }}
           action_name: ${{ github.workflow }}
-
-      - name: Finalize Release (tag + GitHub release)
-        uses: adelynnmckay/github-actions/.github/actions/finalize-release@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: ${{ steps.bump.outputs.new_version }}
 
       - name: Mirror Formula to homebrew-tap
         uses: adelynnmckay/github-actions/.github/actions/publish-to-tap@main
